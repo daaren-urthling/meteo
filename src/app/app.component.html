@@ -1,20 +1,35 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<h1>{{title}}</h1>
+<div class="grid grid-pad">
+  <div class="col-1-2">
+    <div>
+      <input type="text" placeholder="città" [(ngModel)]="city">
+      <button class="btn btn-primary" (click)="OnGetForecastByName()">Cerca</button>
+      <button class="btn btn-primary" (click)="OnAddFavorites()" [disabled]="error">+</button>
+    </div>
+    <ul class="favorites">
+      <li *ngFor="let city of favorites; let i = index">
+        <a role="button" (click)="OnGetForecastByID(city.id)">
+          <span class="badge">&gt;</span> {{city.name}}
+        </a>
+        <button class="delete" title="remove from favorites"
+        (click)="OnRemoveFavorite(index)">x</button>
+      </li>
+    </ul>
+  </div>
+  <div class="col-1-2">
+    <div class="w-card" [hidden]="!result.id">
+      <h1>{{result.city}}</h1>
+      <div>
+        <span class="col-1-4"><img src="http://openweathermap.org/img/w/{{result.icon}}.png" alt=""></span> 
+        <span class="col-1-2"><h3>{{result.condition}}</h3></span>  
+      </div>
+      <br>
+      <div style="clear:both">
+        <span>Temperatura: {{result.temperature}}&deg;C ({{result.tempMin}}&deg;C / {{result.tempMax}}&deg;C)</span>
+      </div>
+    </div>
+    <div *ngIf="error">
+        <span>Città non trovata</span>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
